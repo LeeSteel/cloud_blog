@@ -1,0 +1,50 @@
+spring:
+  datasource:
+    first:
+      type: com.alibaba.druid.pool.DruidDataSource
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://192.168.1.101:3306/cloud_blog_simple?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT&allowMultiQueries=true
+
+#mybatis-plus配置
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.wuhaijun.entity
+  global-config:
+    # 数据库相关配置
+    db-config:
+      #主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+      id-type: AUTO
+      #字段策略 IGNORED:"忽略判断",NOT_NULL:"非 NULL 判断"),NOT_EMPTY:"非空判断"
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: true
+      #数据库大写下划线转换
+      #capital-mode: true
+      #逻辑删除配置
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+      db-type: mysql
+    #刷新mapper 调试神器
+    refresh: true
+  # 原生配置
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+
+pagehelper:
+  reasonable: false
+  support-methods-arguments: true
+  params: count=countSql
+  row-bounds-with-count: true
+  helper-dialect: mysql
+
+
+
+logging:
+    file: log/cloud-blog-simple-demo
+    level:
+      com.lgcy.blog.cloudblogparent: debug
