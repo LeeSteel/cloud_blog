@@ -1,4 +1,4 @@
-package com.lgcy.blog.cloudblogparent;
+package com.lgcy.blog.cloudblog;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CloudBlogParentApplicationTests {
+public class CloudBlogDemoApplicationTests {
 
     @Test
     public void contextLoads() {
