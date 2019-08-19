@@ -23,9 +23,15 @@
         <mybatis.version>3.2.8</mybatis.version>
         <mybatis.plus.boot.version>3.1.2</mybatis.plus.boot.version>
         <mybatis.paginator.version>1.2.15</mybatis.paginator.version>
+        <mybatis.plus.generator.version>3.0.7</mybatis.plus.generator.version>
 
         <druid.version>1.1.10</druid.version>
         <druid.spring.boot.version>1.1.18</druid.spring.boot.version>
+
+        <!-- 模板引擎 -->
+        <freemarker.version>2.3.9</freemarker.version>
+        <beetl.version>2.9.6</beetl.version>
+        <velocity.ngine.core.version>2.0</velocity.ngine.core.version>
 
         <!--关系数据库 -->
         <oracle.version>11.2.0.3</oracle.version>
