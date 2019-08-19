@@ -1,4 +1,4 @@
-package com.lgcy.blog.cloudblogparent;
+package com.lgcy.blog.cloudblog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,11 +16,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @SpringBootApplication
 @EnableTransactionManagement
-@ComponentScan(basePackages = { "com.lgcy.blog.cloudblogparent"})
-public class CloudBlogParentApplication {
+@ComponentScan(basePackages = {"com.lgcy.blog.cloudblog"})
+public class CloudBlogDemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CloudBlogParentApplication.class, args);
+        SpringApplication.run(CloudBlogDemoApplication.class, args);
     }
 
 }
