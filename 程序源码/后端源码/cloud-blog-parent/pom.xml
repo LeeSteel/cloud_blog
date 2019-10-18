@@ -25,15 +25,19 @@
         <mybatis.version>3.2.8</mybatis.version>
         <mybatis.plus.boot.version>3.1.2</mybatis.plus.boot.version>
         <mybatis.paginator.version>1.2.15</mybatis.paginator.version>
-        <mybatis.plus.generator.version>3.0.7</mybatis.plus.generator.version>
+        <mybatis.plus.generator.version>3.2.0</mybatis.plus.generator.version>
+
+        <!-- 分页插件 -->
+        <pagehelper.spring.boot.starter.version>1.2.12</pagehelper.spring.boot.starter.version>
+
 
         <druid.version>1.1.10</druid.version>
         <druid.spring.boot.version>1.1.18</druid.spring.boot.version>
 
         <!-- 模板引擎 -->
-        <freemarker.version>2.3.9</freemarker.version>
-        <beetl.version>2.9.6</beetl.version>
-        <velocity.ngine.core.version>2.0</velocity.ngine.core.version>
+        <freemarker.version>2.3.29</freemarker.version>
+        <beetl.version>3.0.13.RELEASE</beetl.version>
+        <velocity.ngine.core.version>2.1</velocity.ngine.core.version>
 
         <!--关系数据库 -->
         <oracle.version>11.2.0.3</oracle.version>
@@ -52,7 +56,13 @@
         <elasticsearch.version>7.3.0</elasticsearch.version>
         <logstash.version>5.1</logstash.version>
 
-        <spring.cloud.eureka.server.verion>2.0.4.BUILD-SNAPSHOT</spring.cloud.eureka.server.verion>
+
+        <spring.cloud.eureka.server.verion>2.0.4.RELEASE</spring.cloud.eureka.server.verion>
+        <spring.cloud.eureka.client.verion>2.0.4.RELEASE</spring.cloud.eureka.client.verion>
+        <spring.cloud.netflix.zuul.verion>2.0.4.RELEASE</spring.cloud.netflix.zuul.verion>
+        <spring.cloud.starter.gateway.version>2.0.4.RELEASE</spring.cloud.starter.gateway.version>
+        <spring.cloud.gateway.core.version>2.0.4.RELEASE</spring.cloud.gateway.core.version>
+        <spring.cloud.starter.netflix.hystrix.version>2.0.4.RELEASE</spring.cloud.starter.netflix.hystrix.version>
 
         <!--工具包 -->
         <commons.lang3.version>3.3.2</commons.lang3.version>
@@ -68,6 +78,7 @@
         <junit.version>4.12</junit.version>
 
         <lombok.version>1.18.8</lombok.version>
+
 
         <!--接口文档 -->
         <swagger2.version>2.6.1</swagger2.version>
@@ -95,6 +106,88 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+
+            <!-- 微服务 -->
+
+            <!-- 网关 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-gateway</artifactId>
+                <version>${spring.cloud.starter.gateway.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-gateway-core</artifactId>
+                <version>${spring.cloud.gateway.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+                <version>${spring.cloud.starter.netflix.hystrix.version}</version>
+            </dependency>
+            <!-- 注册中心-客户端 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+                <version>${spring.cloud.eureka.client.verion}</version>
+            </dependency>
+
+            <!-- Mybatis -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis.plus.boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>jsqlparser</artifactId>
+                        <groupId>com.github.jsqlparser</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!--分页插件-->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.spring.boot.starter.version}</version>
+            </dependency>
+
+
+            <!-- MySql -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!-- 连接池 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.spring.boot.version}</version>
+            </dependency>
+
+            <!--Swagger-UI API文档生产工具-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger2.ui.version}</version>
+            </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 

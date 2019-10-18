@@ -61,7 +61,8 @@ public class MysqlGenerator {
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(PATH);
-        gc.setAuthor("李钢 2580704698@qq.com");
+       // gc.setAuthor("李钢 2580704698@qq.com");
+        gc.setAuthor("翦全吉彬 jianqjb@thinkive.com");
         gc.setOpen(false);
         gc.setSwagger2(true);
 
@@ -69,11 +70,11 @@ public class MysqlGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/cloud_blog_simple?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT&&characterEncoding=GBK&allowMultiQueries=true");
+        dsc.setUrl("jdbc:mysql://192.168.1.23:3306/cfy_fund_database?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT&&characterEncoding=GBK&allowMultiQueries=true");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("123456");
+        dsc.setUsername("cfy_fund_database");
+        dsc.setPassword("cfy_fund_database");
         mpg.setDataSource(dsc);
 
         // 包配置
@@ -150,14 +151,47 @@ public class MysqlGenerator {
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
+        /**
+         * 数据库表映射到实体的命名策略
+         */
         strategy.setNaming(NamingStrategy.underline_to_camel);
+        /**
+         * 实体是否生成 serialVersionUID
+         */
+        strategy.setEntitySerialVersionUID(true);
+        /**
+         * 数据库表字段映射到实体的命名策略
+         * <p>未指定按照 naming 执行</p>
+         */
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+        /**
+         * 自定义继承的Entity类全称，带包名
+         */
         strategy.setSuperEntityClass("com.baomidou.mybatisplus.samples.generator.common.BaseEntity");
-        strategy.setEntityLombokModel(true);
+        /**
+         * 【实体】是否为lombok模型（默认 false）<br>
+         * <a href="https://projectlombok.org/">document</a>
+         */
+        strategy.setEntityLombokModel(false);
+        /**
+         * 自定义继承的Controller类全称，带包名
+         */
         strategy.setSuperControllerClass("com.baomidou.mybatisplus.samples.generator.common.BaseController");
+        /**
+         * 需要包含的表名，允许正则表达式（与exclude二选一配置）
+         */
         strategy.setInclude(scanner("表名"));
         strategy.setSuperEntityColumns("id");
+        /**
+         * 驼峰转连字符
+         * <pre>
+         *      <code>@RequestMapping("/managerUserActionHistory")</code> -> <code>@RequestMapping("/manager-user-action-history")</code>
+         * </pre>
+         */
         strategy.setControllerMappingHyphenStyle(true);
+        /**
+         * 表前缀
+         */
         strategy.setTablePrefix(pc.getModuleName() + "_");
         strategy.setRestControllerStyle(true);
         strategy.setEntityTableFieldAnnotationEnable(true);

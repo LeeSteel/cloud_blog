@@ -1,0 +1,74 @@
+spring:
+  application:
+    # 应用名称，将会显示在Eureka界面的应用名称列
+    name: cloud-blog-gateway
+  security:
+    user:
+      name: user
+      password: user
+  session:
+    store-type: redis
+    redis:
+      # 会话刷新模式
+      flush-mode: IMMEDIATE
+      # 用于存储会话的键的命名空间。
+      namespace: cloud:blog:session
+  redis:
+    # 集群配置
+    # cluster:
+     # nodes:
+       # - 192.168.25.170:7001
+    # password: 123456
+
+    # 单机版
+    # IP 地址
+    host: 192.168.25.170
+    # 密码
+    password: 123456
+    # 端口
+    port: 7001
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      # 配置所有路由的默认过滤器 这里配置的是 gatewayFilter
+      default-filters:
+        - PrefixPath=/httpbin
+        - AddResponseHeader=X-Response-Default-Foo, Default-Bar
+
+  # 应用端口
+server:
+  #会话超时。如果未指定持续时间后缀
+  servlet:
+    session:
+      timeout:
+  port: 28760
+
+
+
+eureka:
+  instance:
+    # 服务名，默认取 spring.application.name 配置值，如果没有则为 unknown
+    appname: cloud-blog-gateway
+  client:
+    # Eureka服务器的地址，类型为HashMap，缺省的Key为 defaultZone；缺省的Value为 http://localhost:8761/eureka
+    # 如果服务注册中心为高可用集群时，多个注册中心地址以逗号分隔。
+    serviceUrl:
+      defaultZone: http://register-center-1:8761/eureka,http://register-center-2:8762/eureka,http://register-center-3:8763/eureka
+    # defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+
+    # 是否向注册中心注册自己，缺省：true
+    # 一般情况下，Eureka服务端是不需要再注册自己的
+    registerWithEureka: true
+    # 是否从Eureka获取注册信息，缺省：true
+    # 一般情况下，Eureka服务端是不需要的
+    fetchRegistry: true
+    #
+    enabled: true
+
+
+logging:
+    file: log/cloud-blog-gateway.log
+    level:
+      com.lgcy.blog.cloudblog.*: debug

@@ -1,5 +1,7 @@
 package com.lgcy.blog.cloudblog.common;
 
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
 /**
  * @version V1.0
  * @Title:
@@ -10,4 +12,9 @@ package com.lgcy.blog.cloudblog.common;
  * @Copyright: Copyright (c) 2019
  */
 public class BaseController {
+
+    @ExceptionHandler
+    public void exceptionHandler(){
+        //TODO 统一处理异常
+    }
 }
