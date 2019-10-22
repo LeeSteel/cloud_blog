@@ -559,7 +559,7 @@ public class StringUtils {
      * @return
      */
     public static boolean isNullOrInfiniteEmpty(String str) {
-        return str == null || "".equals(str) || str.matches("\\s+");
+        return str == null || "".equals(str) || str.matches("\\s+") || "null".equals(str);
     }
 
     /**
