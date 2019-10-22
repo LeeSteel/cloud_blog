@@ -1,0 +1,79 @@
+spring:
+  application:
+    name: cloud-blog-admin
+  datasource:
+    first:
+      type: com.alibaba.druid.pool.DruidDataSource
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/cloud_blog_plat?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT&allowMultiQueries=true
+    second:
+      type: com.alibaba.druid.pool.DruidDataSource
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/cloud_blog_simple?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT&allowMultiQueries=true
+
+  zipkin:
+    base-url: http://localhost:38760/     # 指定了 Zipkin 服务器的地址
+  # 应用端口
+server:
+  port: 28763
+
+eureka:
+  client:
+    # Eureka服务器的地址，类型为HashMap，缺省的Key为 defaultZone；缺省的Value为 http://localhost:8761/eureka
+    # 如果服务注册中心为高可用集群时，多个注册中心地址以逗号分隔。
+    serviceUrl:
+      defaultZone: http://register-center-1:8761/eureka,http://register-center-2:8762/eureka,http://register-center-3:8763/eureka
+    # defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+
+    # 是否向注册中心注册自己，缺省：true
+    # 一般情况下，Eureka服务端是不需要再注册自己的
+    registerWithEureka: true
+    # 是否从Eureka获取注册信息，缺省：true
+    # 一般情况下，Eureka服务端是不需要的
+    fetchRegistry: true
+
+#mybatis-plus配置
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.lgcy.blog.cloudblog.modules.*.entity
+  global-config:
+    # 数据库相关配置
+    db-config:
+      #主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+      id-type: AUTO
+      #字段策略 IGNORED:"忽略判断",NOT_NULL:"非 NULL 判断"),NOT_EMPTY:"非空判断"
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: true
+      #数据库大写下划线转换
+      #capital-mode: true
+      #逻辑删除配置
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+      db-type: mysql
+    #刷新mapper 调试神器
+    refresh: true
+  # 原生配置
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+
+pagehelper:
+  reasonable: false
+  support-methods-arguments: true
+  params: count=countSql
+  row-bounds-with-count: true
+  helper-dialect: mysql
+
+
+
+logging:
+    file: log/cloud-blog-admin.log
+    level:
+      com.lgcy.blog.cloudblog.modules.*.mapper: debug
