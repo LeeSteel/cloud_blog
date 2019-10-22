@@ -1,5 +1,8 @@
 package com.lgcy.blog.cloudblog.common;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * @version V1.0
  * @Title:
@@ -9,6 +12,7 @@ package com.lgcy.blog.cloudblog.common;
  * @date: 2019/8/19 23:00
  * @Copyright: Copyright (c) 2019
  */
+@ApiModel(value="返回类", description="公共响应类")
 public class BaseResponse<T> {
 
     private static final int CODE_SUCCESS = 200;
@@ -18,11 +22,11 @@ public class BaseResponse<T> {
     private static final int CODE_ERROR = 500;
 
     private static final int CODE_NO_LOGIN = 300;
-
+    @ApiModelProperty(value = "code")
     private int code;
-
+    @ApiModelProperty(value = "消息")
     private String msg;
-
+    @ApiModelProperty(value = "对象")
     private T data;
 
     public BaseResponse(int code, String msg, T data) {

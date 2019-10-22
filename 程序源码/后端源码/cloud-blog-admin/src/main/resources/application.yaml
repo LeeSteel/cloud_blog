@@ -64,12 +64,12 @@ mybatis-plus:
     cache-enabled: false
 
 
-pagehelper:
-  reasonable: false
-  support-methods-arguments: true
-  params: count=countSql
-  row-bounds-with-count: true
-  helper-dialect: mysql
+#pagehelper:
+#  reasonable: false
+#  support-methods-arguments: true
+#  params: count=countSql
+#  row-bounds-with-count: true
+#  helper-dialect: mysql
 
 
 

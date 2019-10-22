@@ -1,12 +1,12 @@
 package com.lgcy.blog.cloudblog.modules.sys.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lgcy.blog.cloudblog.modules.sys.entity.CbPlatSysUser;
 import com.lgcy.blog.cloudblog.modules.sys.mapper.CbPlatSysUserMapper;
 import com.lgcy.blog.cloudblog.modules.sys.service.ICbPlatSysUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
- /**
+/**
  * @version V1.0
  * @Title:
  * @Package

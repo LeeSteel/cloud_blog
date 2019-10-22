@@ -95,6 +95,7 @@ public class MyBatisConfiguration
         {
             factory.setTypeAliasesPackage(this.properties.getTypeAliasesPackage());
         }
+
         // TODO 鑷畾涔夋灇涓惧寘
         if ( StringUtils.hasLength(this.properties.getTypeEnumsPackage()) )
         {

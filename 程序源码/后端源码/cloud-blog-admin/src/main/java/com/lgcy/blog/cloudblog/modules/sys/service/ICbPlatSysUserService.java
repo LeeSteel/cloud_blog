@@ -1,5 +1,7 @@
 package com.lgcy.blog.cloudblog.modules.sys.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lgcy.blog.cloudblog.modules.sys.entity.CbPlatSysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -14,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ICbPlatSysUserService extends IService<CbPlatSysUser> {
 
-}
+
+ }
