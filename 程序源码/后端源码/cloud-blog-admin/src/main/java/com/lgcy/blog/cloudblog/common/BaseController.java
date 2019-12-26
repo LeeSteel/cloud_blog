@@ -13,8 +13,4 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  */
 public class BaseController {
 
-    @ExceptionHandler
-    public void exceptionHandler(){
-        //TODO 统一处理异常
-    }
 }

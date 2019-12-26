@@ -40,7 +40,7 @@ import java.util.List;
  */
 @Slf4j
 @Configuration
-@MapperScan(basePackages = "com.lgcy.blog.cloudblog.modules.*.mapper", sqlSessionFactoryRef = "firstSqlSessionFactory", sqlSessionTemplateRef = "firstSqlSessionTemplate")
+@MapperScan(basePackages = "com.lgcy.blog.cloudblog.modules.sys.mapper", sqlSessionFactoryRef = "firstSqlSessionFactory", sqlSessionTemplateRef = "firstSqlSessionTemplate")
 public class FirstMyBatisConfiguration extends MyBatisConfiguration
 {
     

@@ -1,23 +1,19 @@
 package cloudbloglgcy.cloudbloggenerator;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
+import cloudbloglgcy.cloudbloggenerator.config.GeneratorConfig;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.FileOutConfig;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-import com.baomidou.mybatisplus.generator.config.TemplateConfig;
+import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * <p>
@@ -27,7 +23,7 @@ import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
  * @author jobob
  * @since 2018-09-12
  */
-public class MysqlGenerator {
+public class CloudBlogGenerator {
 
     public static final String PATH = "F:/cloud-blog-generator/";
 
@@ -54,34 +50,34 @@ public class MysqlGenerator {
      * RUN THIS
      */
     public static void main(String[] args) {
+
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(PATH);
+        gc.setOutputDir(GeneratorConfig.getStringValue("out_put_dir"));
         gc.setFileOverride(true);
-        gc.setAuthor("李钢 2580704698@qq.com");
-         // gc.setAuthor("翦全吉彬 jianqjb@thinkive.com");
+        gc.setAuthor(GeneratorConfig.getStringValue("author_name") + " " + GeneratorConfig.getStringValue("author_mail"));
         gc.setOpen(false);
-        gc.setSwagger2(true);
+        gc.setSwagger2(GeneratorConfig.getBooleanValue("swagger2"));
 
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/cloud_blog_plat?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT&&characterEncoding=GBK&allowMultiQueries=true");
+        dsc.setUrl(GeneratorConfig.getStringValue("jdbc_url"));
         // dsc.setSchemaName("public");
-        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("123456");
+        dsc.setDriverName(GeneratorConfig.getStringValue("jdbc_driver"));
+        dsc.setUsername(GeneratorConfig.getStringValue("jdbc_username"));
+        dsc.setPassword(GeneratorConfig.getStringValue("jdbc_password"));
         mpg.setDataSource(dsc);
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName(scanner("模块名"));
-        pc.setParent("com.lgcy.blog.cloudblog.modules");
+        pc.setModuleName(GeneratorConfig.getStringValue("module_name"));
+        pc.setParent(GeneratorConfig.getStringValue("package_parent"));
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -98,7 +94,7 @@ public class MysqlGenerator {
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输入文件名称
                 return PATH + pc.getModuleName()
-                        + "/" + tableInfo.getEntityName() + "Dao" + StringPool.DOT_JAVA;
+                        + "/mapper/" + tableInfo.getMapperName() + StringPool.DOT_JAVA;
             }
         });
         //mapper.xml
@@ -107,7 +103,7 @@ public class MysqlGenerator {
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输入文件名称
                 return PATH + pc.getModuleName()
-                        + "/" + tableInfo.getMapperName()   + StringPool.DOT_XML;
+                        + "/" + tableInfo.getMapperName() + StringPool.DOT_XML;
             }
         });
         //entity
@@ -116,7 +112,7 @@ public class MysqlGenerator {
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输入文件名称
                 return PATH + pc.getModuleName()
-                        + "/" + tableInfo.getEntityName() + StringPool.DOT_JAVA;
+                        + "/entity/" + tableInfo.getEntityName() + StringPool.DOT_JAVA;
             }
         });
         //service
@@ -125,7 +121,7 @@ public class MysqlGenerator {
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输入文件名称
                 return PATH + pc.getModuleName()
-                        + "/" + tableInfo.getServiceName() + StringPool.DOT_JAVA;
+                        + "/service/" + tableInfo.getServiceName() + StringPool.DOT_JAVA;
             }
         });
         //serviceImpl
@@ -134,7 +130,7 @@ public class MysqlGenerator {
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输入文件名称
                 return PATH + pc.getModuleName()
-                        + "/" + tableInfo.getServiceImplName() + StringPool.DOT_JAVA;
+                        + "/service/impl/" + tableInfo.getServiceImplName() + StringPool.DOT_JAVA;
             }
         });
         //controller
@@ -143,12 +139,20 @@ public class MysqlGenerator {
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输入文件名称
                 return PATH + pc.getModuleName()
-                        + "/" + tableInfo.getControllerName() + StringPool.DOT_JAVA;
+                        + "/controller/" + tableInfo.getControllerName() + StringPool.DOT_JAVA;
             }
         });
         cfg.setFileOutConfigList(focList);
         mpg.setCfg(cfg);
-        mpg.setTemplate(new TemplateConfig().setXml(null));
+        TemplateConfig templateConfig = new TemplateConfig();
+        templateConfig.setEntity(null);
+        templateConfig.setController(null);
+        templateConfig.setXml(null);
+        templateConfig.setServiceImpl(null);
+        templateConfig.setService(null);
+        templateConfig.setMapper(null);
+        templateConfig.setEntityKt(null);
+        mpg.setTemplate(templateConfig);
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
@@ -181,12 +185,13 @@ public class MysqlGenerator {
         /**
          * 需要包含的表名，允许正则表达式（与exclude二选一配置）
          */
-        strategy.setInclude(scanner("表名"));
+        strategy.setInclude(GeneratorConfig.getStringValue("table_name"));
         strategy.setSuperEntityColumns("id");
         /**
          * 驼峰转连字符
          * <pre>
-         *      <code>@RequestMapping("/managerUserActionHistory")</code> -> <code>@RequestMapping("/manager-user-action-history")</code>
+         *      <code>@RequestMapping("/managerUserActionHistory")</code>
+         *     -> <code>@RequestMapping("/manager-user-action-history")</code>
          * </pre>
          */
         strategy.setControllerMappingHyphenStyle(true);

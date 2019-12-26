@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 <#else>
 import org.springframework.stereotype.Controller;
 </#if>
-
+<#if swagger2>
+import io.swagger.annotations.*;
+</#if>
 <#if superControllerClassPackage??>
 import ${superControllerClassPackage};
 </#if>
@@ -15,10 +17,10 @@ import lombok.extern.slf4j.Slf4j;
 </#if>
 import ${package.Service}.${table.serviceName};
 import ${package.Entity}.${entity};
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.message.common.BaseResponse;
+import com.lgcy.blog.cloudblog.common.BaseResponse;
 
 import java.util.List;
 
@@ -32,14 +34,19 @@ import java.util.List;
  * @Copyright: Copyright (c) 2019
  */
 <#if entityLombokModel>
- @Slf4j
+@Slf4j
+</#if>
+<#if swagger2>
+@Api(description = "${table.comment!}模块接口详情")
 </#if>
 <#if restControllerStyle>
 @RestController
 <#else>
 @Controller
 </#if>
+
 @RequestMapping("<#if package.ModuleName??>/${package.ModuleName}</#if>/<#if controllerMappingHyphenStyle??>${controllerMappingHyphen}<#else>${table.entityPath}</#if>")
+
 <#if kotlin>
 class ${table.controllerName}<#if superControllerClass??> : ${superControllerClass}()
 </#if>
@@ -50,45 +57,81 @@ public class ${table.controllerName} extends ${superControllerClass} {
 public class ${table.controllerName} {
 </#if>
 
-    
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    <#if entityLombokModel>
+    <#else>
+     private Logger logger = LoggerFactory.getLogger(getClass());
+    </#if>
     @Autowired
     private ${table.serviceName} ${(table.serviceName?substring(1))?uncap_first};
  
    /**
      * 获取数据列表
      */
-    @RequestMapping("/list")
-    @ResponseBody
+    <#if swagger2>
+        @ApiOperation(value=" 分页 获取 ${table.comment!} 列表", notes="")
+        @ApiImplicitParams({
+        @ApiImplicitParam(name = "page", value = "分页页数", required = true, dataType = "int",defaultValue = "1"),
+        @ApiImplicitParam(name = "rows", value = "分页大小", required = true, dataType = "int",defaultValue = "20")
+        })
+        @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Successful — 请求已完成"),
+        @ApiResponse(code = 400, message = "请求中有语法问题，或不能满足请求"),
+        @ApiResponse(code = 401, message = "未授权客户机访问数据"),
+        @ApiResponse(code = 404, message = "服务器找不到给定的资源；文档不存在"),
+        @ApiResponse(code = 500, message = "服务器不能完成请求")}
+        )
+    </#if>
+    @RequestMapping(value = "/list" , method = RequestMethod.GET)
     public BaseResponse findListByPage(@RequestParam(name = "page", defaultValue = "1") int pageIndex,@RequestParam(name = "rows", defaultValue = "20") int step){
         Page page = new Page(pageIndex,step);
        ${(table.serviceName?substring(1))?uncap_first}.page(page);
-        return BaseResponse.onSuccess(page);
+        return BaseResponse.success(page);
     }
 
 
     /**
      * 获取全部数据
      */
-    @RequestMapping("/all")
-    @ResponseBody
+    <#if swagger2>
+        @ApiOperation(value="获取 ${table.comment!} 所有数据列表", notes="")
+        @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Successful — 请求已完成"),
+        @ApiResponse(code = 400, message = "请求中有语法问题，或不能满足请求"),
+        @ApiResponse(code = 401, message = "未授权客户机访问数据"),
+        @ApiResponse(code = 404, message = "服务器找不到给定的资源；文档不存在"),
+        @ApiResponse(code = 500, message = "服务器不能完成请求")}
+        )
+    </#if>
+    @RequestMapping(value = "/all" , method = RequestMethod.GET)
     public BaseResponse findAll(){
         List<${entity}> models = ${(table.serviceName?substring(1))?uncap_first}.list();
-        return BaseResponse.onSuccess(models);
+        return BaseResponse.success(models);
     }
 
 
     /**
      * 根据ID查找数据
      */
-    @RequestMapping("/find")
-    @ResponseBody
+    <#if swagger2>
+        @ApiOperation(value=" 根据主键ID 获取 ${table.comment!} 详情", notes="")
+        @ApiImplicitParams({
+        @ApiImplicitParam(name = "id", value = "主键ID", required = true, dataType = "Long"),
+        })
+        @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Successful — 请求已完成"),
+        @ApiResponse(code = 400, message = "请求中有语法问题，或不能满足请求"),
+        @ApiResponse(code = 401, message = "未授权客户机访问数据"),
+        @ApiResponse(code = 404, message = "服务器找不到给定的资源；文档不存在"),
+        @ApiResponse(code = 500, message = "服务器不能完成请求")}
+        )
+    </#if>
+    @RequestMapping(value ="/find" , method = RequestMethod.GET)
     public BaseResponse find(@RequestParam("id") Long id){
         ${entity} ${entity} = ${(table.serviceName?substring(1))?uncap_first}.getById(id);
         if(${entity}==null){
-            return BaseResponse.onFail("尚未查询到此ID");
+            return BaseResponse.error("尚未查询到此ID");
         }
-        return BaseResponse.onSuccess(${entity});
+        return BaseResponse.success(${entity});
     }
 
 
@@ -96,13 +139,12 @@ public class ${table.controllerName} {
      * 添加数据
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    @ResponseBody
     public BaseResponse addItem(@RequestBody ${entity} ${entity}){
         boolean isOk = ${(table.serviceName?substring(1))?uncap_first}.save(${entity});
         if(isOk){
-            return BaseResponse.onSuccess("数据添加成功！");
+            return BaseResponse.success("数据添加成功！");
         }
-        return BaseResponse.onFail("数据添加失败");
+        return BaseResponse.error("数据添加失败");
     }
 
 
@@ -110,30 +152,28 @@ public class ${table.controllerName} {
      * 更新数据
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    @ResponseBody
     public BaseResponse updateItem(@RequestBody ${entity} ${entity}){
         boolean isOk = ${(table.serviceName?substring(1))?uncap_first}.updateById(${entity});
         if(isOk){
-            return BaseResponse.onSuccess("数据更改成功！");
+            return BaseResponse.success("数据更改成功！");
         }
-        return BaseResponse.onFail("数据更改失败");
+        return BaseResponse.error("数据更改失败");
      }
 
 
     /**
      * 删除数据
      */
-    @RequestMapping("/del")
-    @ResponseBody
+    @RequestMapping(value = "/delete" , method = RequestMethod.DELETE)
     public BaseResponse deleteItems(@RequestParam("ids") List<Long> ids){
         boolean isOk = ${(table.serviceName?substring(1))?uncap_first}.removeByIds(ids);
         if(isOk){
-            return BaseResponse.onSuccess("数据删除成功！");
+            return BaseResponse.success("数据删除成功！");
         }
-        return BaseResponse.onFail("数据删除失败");
+        return BaseResponse.error("数据删除失败");
         }
     }
  
-}
+
 
 </#if>

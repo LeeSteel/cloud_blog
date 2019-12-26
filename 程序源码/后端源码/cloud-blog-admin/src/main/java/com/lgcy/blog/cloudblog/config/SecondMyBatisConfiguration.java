@@ -4,7 +4,6 @@ import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
@@ -25,7 +24,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 import javax.sql.DataSource;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -40,42 +38,42 @@ import java.util.List;
  */
 @Slf4j
 @Configuration
-@MapperScan(basePackages = "com.lgcy.blog.cloudblog.modules.*.mapper", sqlSessionFactoryRef = "firstSqlSessionFactory", sqlSessionTemplateRef = "firstSqlSessionTemplate")
-public class FirstMyBatisConfiguration extends MyBatisConfiguration
+@MapperScan(basePackages = "com.lgcy.blog.cloudblog.modules.demo.mapper", sqlSessionFactoryRef = "secondSqlSessionFactory", sqlSessionTemplateRef = "secondSqlSessionTemplate")
+public class SecondMyBatisConfiguration extends MyBatisConfiguration
 {
-    
-    private static Logger logger = LoggerFactory.getLogger(FirstMyBatisConfiguration.class);
-    
-    public FirstMyBatisConfiguration(MybatisPlusProperties properties,
-            ObjectProvider<Interceptor[]> interceptorsProvider, ResourceLoader resourceLoader,
-            ObjectProvider<DatabaseIdProvider> databaseIdProvider,
-            ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider,
-            ApplicationContext applicationContext)
+
+    private static Logger logger = LoggerFactory.getLogger(SecondMyBatisConfiguration.class);
+
+    public SecondMyBatisConfiguration(MybatisPlusProperties properties,
+                                      ObjectProvider<Interceptor[]> interceptorsProvider, ResourceLoader resourceLoader,
+                                      ObjectProvider<DatabaseIdProvider> databaseIdProvider,
+                                      ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider,
+                                      ApplicationContext applicationContext)
     {
         super(properties, interceptorsProvider, resourceLoader, databaseIdProvider, configurationCustomizersProvider,
                 applicationContext);
     }
     
-    @Primary
-    @Bean("firstDatasource")
-    @ConfigurationProperties(prefix = "spring.datasource.first")
-    public DataSource firstDatasource()
+
+    @Bean("secondDatasource")
+    @ConfigurationProperties(prefix = "spring.datasource.second")
+    public DataSource secondDatasource()
     {
         return DruidDataSourceBuilder.create().build();
     }
     
     @Primary
-    @Bean("firstSqlSessionFactory")
-    public SqlSessionFactory firstSqlSessionFactory(@Autowired @Qualifier("firstDatasource") DataSource dataSource)
+    @Bean("secondSqlSessionFactory")
+    public SqlSessionFactory secondSqlSessionFactory(@Autowired @Qualifier("secondDatasource") DataSource dataSource)
             throws Exception
     {
         return sqlSessionFactory(dataSource);
     }
     
     @Primary
-    @Bean("firstSqlSessionTemplate")
+    @Bean("secondSqlSessionTemplate")
     public SqlSessionTemplate secondSqlSessionTemplate(
-            @Autowired @Qualifier("firstSqlSessionFactory") SqlSessionFactory sqlSessionFactory)
+            @Autowired @Qualifier("secondSqlSessionFactory") SqlSessionFactory sqlSessionFactory)
     {
         return sqlSessionTemplate(sqlSessionFactory);
     }

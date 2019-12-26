@@ -8,10 +8,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>com.lgcy.blog</groupId>
-    <artifactId>cloud-blog-demo</artifactId>
+    <artifactId>cloud-blog-admin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>cloud-blog-demo</name>
-    <description>Demo project for Spring Boot</description>
+    <name>cloud-blog-admin</name>
+    <description>云博客-权限模块</description>
 
 
     <dependencies>
@@ -57,17 +57,6 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jsqlparser</artifactId>
-                    <groupId>com.github.jsqlparser</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--分页插件-->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
         </dependency>
 
         <!-- MySql -->
@@ -120,7 +109,6 @@
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>${jedis.version}</version>
         </dependency>
 
 

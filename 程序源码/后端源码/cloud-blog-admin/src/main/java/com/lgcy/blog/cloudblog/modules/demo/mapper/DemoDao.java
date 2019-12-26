@@ -1,4 +1,4 @@
-package com.lgcy.blog.cloudblog.modules.demo.dao;
+package com.lgcy.blog.cloudblog.modules.demo.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
