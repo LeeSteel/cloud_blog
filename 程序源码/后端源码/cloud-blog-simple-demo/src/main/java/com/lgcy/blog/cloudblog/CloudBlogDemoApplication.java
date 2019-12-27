@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * @version V1.0
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @date: 2019/8/18 21:27
  * @Copyright: Copyright (c) 2019
  */
+@EnableSwagger2
 @SpringBootApplication
 @EnableTransactionManagement
 @EnableEurekaClient

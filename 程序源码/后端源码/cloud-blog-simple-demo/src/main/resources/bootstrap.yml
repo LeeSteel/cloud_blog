@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: cloud-blog-demo
+  profiles:
+    active: dev
+  cloud:
+    config:
+      # uri 配置中心地址
+      uri: http://localhost:18999/
+      fail-fast: true
