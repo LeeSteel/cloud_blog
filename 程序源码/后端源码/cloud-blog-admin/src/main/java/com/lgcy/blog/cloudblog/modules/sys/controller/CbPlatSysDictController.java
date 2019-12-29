@@ -1,20 +1,25 @@
 package com.lgcy.blog.cloudblog.modules.sys.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.lgcy.blog.api.admin.CbPlatSysDictControllerApi;
+import com.lgcy.blog.domain.admin.CbPlatSysDict;
+import com.lgcy.blog.domain.admin.response.CbPlatSysCode;
+import com.lgcy.blog.framework.exception.ExceptionCast;
+import com.lgcy.blog.framework.model.response.*;
+import com.lgcy.blog.framework.model.response.QueryResponseResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import com.lgcy.blog.cloudblog.common.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import com.lgcy.blog.cloudblog.modules.sys.service.ICbPlatSysDictService;
-import com.lgcy.blog.cloudblog.modules.sys.entity.CbPlatSysDict;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.lgcy.blog.cloudblog.common.BaseResponse;
 
 import java.util.List;
+
 
 /**
  * @version V1.0
@@ -29,47 +34,60 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/sys/cb-plat-sys-dict")
-public class CbPlatSysDictController extends BaseController {
+public class CbPlatSysDictController implements CbPlatSysDictControllerApi {
 
     @Autowired
     private ICbPlatSysDictService cbPlatSysDictService;
- 
-   /**
+
+
+    /**
      * 获取数据列表
      */
-        @ApiOperation(value="获取 平台-系统-数据字典 列表", notes="")
-        @ApiImplicitParams({
-        @ApiImplicitParam(name = "page", value = "分页页数", required = true, dataType = "int"),
-        @ApiImplicitParam(name = "rows", value = "分页大小", required = true, dataType = "int")
-        })
-    @RequestMapping(value="/list", method = RequestMethod.GET)
-    public BaseResponse findListByPage(@RequestParam(name = "page", defaultValue = "1") int pageIndex,@RequestParam(name = "rows", defaultValue = "20") int step){
-        Page page = new Page(pageIndex,step);
-       cbPlatSysDictService.page(page);
-        return BaseResponse.success(page);
-    }
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @Override
+    public QueryResponseResult<CbPlatSysDict> findListByPage(@RequestParam(name = "page", defaultValue = "1") int pageIndex, @RequestParam(name = "rows", defaultValue = "20") int step) {
 
+        Page page = new Page(pageIndex, step);
+        IPage iPage = cbPlatSysDictService.page(page);
+
+        QueryResult<CbPlatSysDict> queryResult = new QueryResult<>();
+        long total = iPage.getTotal();
+        List list = (List<CbPlatSysDict>) iPage.orders();
+        queryResult.setTotal(total);
+        queryResult.setList(list);
+        return new QueryResponseResult<CbPlatSysDict>(CommonCode.SUCCESS, queryResult);
+    }
 
     /**
      * 获取全部数据
      */
-    @RequestMapping(value="/all", method = RequestMethod.GET)
-    public BaseResponse findAll(){
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @Override
+    public QueryResponseResult<CbPlatSysDict> findAll() {
+
         List<CbPlatSysDict> models = cbPlatSysDictService.list();
-        return BaseResponse.success(models);
+        if (models.size() <= 0) {
+            ExceptionCast.cast(CbPlatSysCode.CB_PLAT_SYS_ISNULL);
+        }
+        QueryResult<CbPlatSysDict> queryResult = new QueryResult<>();
+        long total = models.size();
+        queryResult.setTotal(total);
+        queryResult.setList(models);
+        return new QueryResponseResult<>(CommonCode.SUCCESS, queryResult);
     }
 
 
     /**
      * 根据ID查找数据
      */
-    @RequestMapping(value="/find", method = RequestMethod.GET)
-    public BaseResponse find(@RequestParam("id") Long id){
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    @Override
+    public CbPlatSysDict find(@RequestParam("id") Long id) {
         CbPlatSysDict CbPlatSysDict = cbPlatSysDictService.getById(id);
-        if(CbPlatSysDict==null){
-            return BaseResponse.error("尚未查询到此ID");
+        if (CbPlatSysDict == null) {
+            ExceptionCast.cast(CbPlatSysCode.CB_PLAT_SYS_ISNULL);
         }
-        return BaseResponse.success(CbPlatSysDict);
+        return CbPlatSysDict;
     }
 
 
@@ -78,42 +96,44 @@ public class CbPlatSysDictController extends BaseController {
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResponse addItem(@RequestBody CbPlatSysDict CbPlatSysDict){
+    @Override
+    public ResponseResult addItem(@RequestBody CbPlatSysDict CbPlatSysDict) {
         boolean isOk = cbPlatSysDictService.save(CbPlatSysDict);
-        if(isOk){
-            return BaseResponse.success("数据添加成功！");
+        if (isOk) {
+            return new ResponseResult(CommonCode.SUCCESS);
         }
-        return BaseResponse.error("数据添加失败");
+        return new ResponseResult(CbPlatSysCode.CB_PLAT_SYS_ADD_ERROR);
     }
 
 
     /**
      * 更新数据
      */
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
-    public BaseResponse updateItem(@RequestBody CbPlatSysDict CbPlatSysDict){
+    @Override
+    public ResponseResult updateItem(@RequestBody CbPlatSysDict CbPlatSysDict) {
         boolean isOk = cbPlatSysDictService.updateById(CbPlatSysDict);
-        if(isOk){
-            return BaseResponse.success("数据更改成功！");
+        if (isOk) {
+            return new ResponseResult(CommonCode.SUCCESS);
         }
-        return BaseResponse.error("数据更改失败");
-     }
+        return new ResponseResult(CbPlatSysCode.CB_PLAT_SYS_UPDATE_ERROR);
+    }
 
 
     /**
      * 删除数据
      */
-    @RequestMapping(value="/del", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/del", method = RequestMethod.DELETE)
     @ResponseBody
-    public BaseResponse deleteItems(@RequestParam("ids") List<Long> ids){
+    @Override
+    public ResponseResult deleteItems(@RequestParam("ids") List<Long> ids) {
         boolean isOk = cbPlatSysDictService.removeByIds(ids);
-        if(isOk){
-            return BaseResponse.success("数据删除成功！");
+        if (isOk) {
+            return new ResponseResult(CommonCode.SUCCESS);
         }
-        return BaseResponse.error("数据删除失败");
-        }
+        return new ResponseResult(CbPlatSysCode.CB_PLAT_SYS_DELETE_ERROR);
     }
- 
 
+}
 

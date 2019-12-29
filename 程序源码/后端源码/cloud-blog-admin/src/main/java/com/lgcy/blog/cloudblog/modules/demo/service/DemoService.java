@@ -2,7 +2,7 @@ package com.lgcy.blog.cloudblog.modules.demo.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.lgcy.blog.cloudblog.modules.demo.entity.Demo;
+import com.lgcy.blog.domain.demo.Demo;
 
 /**
  * @version V1.0

@@ -1,10 +1,10 @@
 package com.lgcy.blog.cloudblog.modules.sys.mapper;
 
-import com.lgcy.blog.cloudblog.modules.sys.entity.CbPlatSysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.lgcy.blog.domain.admin.CbPlatSysUser;
 
 
- /**
+/**
  * @version V1.0
  * @Title:
  * @Package

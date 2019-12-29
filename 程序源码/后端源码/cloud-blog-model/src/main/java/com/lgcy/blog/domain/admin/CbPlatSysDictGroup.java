@@ -1,16 +1,17 @@
-package com.lgcy.blog.cloudblog.modules.sys.entity;
+package com.lgcy.blog.domain.admin;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.lgcy.blog.cloudblog.common.BaseEntity;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.experimental.Accessors;
+
+import java.util.Date;
 
 /**
  * @version V1.0
@@ -22,11 +23,11 @@ import lombok.experimental.Accessors;
  * @Copyright: Copyright (c) 2019
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
+@ToString
 @TableName("cb_plat_sys_dict_group")
 @ApiModel(value="CbPlatSysDictGroup对象", description="平台-系统-数据字典分组")
-public class CbPlatSysDictGroup extends BaseEntity {
+public class CbPlatSysDictGroup {
    private static final long serialVersionUID = 1L;
 
     @TableId(value="id", type = IdType.UUID)

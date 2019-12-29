@@ -1,16 +1,18 @@
-package com.lgcy.blog.cloudblog.modules.sys.entity;
+package com.lgcy.blog.domain.admin;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.lgcy.blog.cloudblog.common.BaseEntity;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @version V1.0
@@ -22,11 +24,11 @@ import lombok.experimental.Accessors;
  * @Copyright: Copyright (c) 2019
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
+@ToString
 @Accessors(chain = true)
 @TableName("cb_plat_sys_user")
 @ApiModel(value="CbPlatSysUser对象", description="平台-系统-用户表")
-public class CbPlatSysUser extends BaseEntity {
+public class CbPlatSysUser implements Serializable {
    private static final long serialVersionUID = 1L;
 
     @TableId(value = "user_id", type = IdType.AUTO)

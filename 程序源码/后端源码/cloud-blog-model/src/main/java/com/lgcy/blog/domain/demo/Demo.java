@@ -1,15 +1,17 @@
-package com.lgcy.blog.cloudblog.modules.demo.entity;
+package com.lgcy.blog.domain.demo;
 
 
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.lgcy.blog.cloudblog.common.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @version V1.0
@@ -21,10 +23,10 @@ import lombok.experimental.Accessors;
  * @Copyright: Copyright (c) 2019
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
+@ToString
 @Accessors(chain = true)
 @ApiModel(value="Demo对象", description="样例")
-public class Demo extends BaseEntity {
+public class Demo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

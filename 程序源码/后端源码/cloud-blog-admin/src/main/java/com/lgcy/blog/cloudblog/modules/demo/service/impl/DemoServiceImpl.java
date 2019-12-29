@@ -2,8 +2,8 @@ package com.lgcy.blog.cloudblog.modules.demo.service.impl;
 
 import com.lgcy.blog.cloudblog.modules.demo.mapper.DemoDao;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lgcy.blog.cloudblog.modules.demo.entity.Demo;
 import com.lgcy.blog.cloudblog.modules.demo.service.DemoService;
+import com.lgcy.blog.domain.demo.Demo;
 import org.springframework.stereotype.Service;
 
  /**

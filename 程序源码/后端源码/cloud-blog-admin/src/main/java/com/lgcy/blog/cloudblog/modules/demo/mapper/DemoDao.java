@@ -2,7 +2,7 @@ package com.lgcy.blog.cloudblog.modules.demo.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.lgcy.blog.cloudblog.modules.demo.entity.Demo;
+import com.lgcy.blog.domain.demo.Demo;
 
 
 /**

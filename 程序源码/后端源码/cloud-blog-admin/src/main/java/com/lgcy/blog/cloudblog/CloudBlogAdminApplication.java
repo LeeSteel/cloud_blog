@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -24,6 +25,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableDiscoveryClient
 @EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
+@EntityScan("com.lgcy.blog.domain.admin")//扫描实体类
+@ComponentScan(basePackages={"com.lgcy.blog.api"})//扫描接口
+@ComponentScan(basePackages={"com.lgcy.blog.framework"})//扫描common下的所有类
 @ComponentScan(basePackages = {"com.lgcy.blog.cloudblog"})
 public class CloudBlogAdminApplication {
 

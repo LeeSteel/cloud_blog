@@ -1,9 +1,9 @@
 package com.lgcy.blog.cloudblog.modules.sys.service.impl;
 
-import com.lgcy.blog.cloudblog.modules.sys.entity.CbPlatSysDict;
 import com.lgcy.blog.cloudblog.modules.sys.mapper.CbPlatSysDictMapper;
 import com.lgcy.blog.cloudblog.modules.sys.service.ICbPlatSysDictService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lgcy.blog.domain.admin.CbPlatSysDict;
 import org.springframework.stereotype.Service;
 
  /**

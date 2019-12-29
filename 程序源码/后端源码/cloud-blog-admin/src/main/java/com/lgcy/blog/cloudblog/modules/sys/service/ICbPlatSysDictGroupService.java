@@ -1,7 +1,7 @@
 package com.lgcy.blog.cloudblog.modules.sys.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.lgcy.blog.cloudblog.modules.sys.entity.CbPlatSysDictGroup;
+import com.lgcy.blog.domain.admin.CbPlatSysDictGroup;
 
 /**
  * @Author chenye

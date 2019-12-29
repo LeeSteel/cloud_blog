@@ -1,9 +1,9 @@
 package com.lgcy.blog.cloudblog.modules.sys.service;
 
-import com.lgcy.blog.cloudblog.modules.sys.entity.CbPlatSysDict;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lgcy.blog.domain.admin.CbPlatSysDict;
 
- /**
+/**
  * @version V1.0
  * @Title:
  * @Package

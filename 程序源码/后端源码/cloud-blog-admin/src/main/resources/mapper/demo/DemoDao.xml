@@ -3,7 +3,7 @@
 <mapper
         namespace="com.lgcy.blog.cloudblog.modules.demo.mapper.DemoDao">
 
-    <resultMap id="Demo" type="com.lgcy.blog.cloudblog.modules.demo.entity.Demo">
+    <resultMap id="Demo" type="com.lgcy.blog.domain.demo.Demo">
     </resultMap>
 
 </mapper>

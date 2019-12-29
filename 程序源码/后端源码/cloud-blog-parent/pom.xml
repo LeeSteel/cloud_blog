@@ -58,6 +58,7 @@
 
 
         <spring.cloud.eureka.server.verion>2.0.4.RELEASE</spring.cloud.eureka.server.verion>
+        <spring.cloud.config.server.verion>2.0.4.RELEASE</spring.cloud.config.server.verion>
         <spring.cloud.eureka.client.verion>2.0.4.RELEASE</spring.cloud.eureka.client.verion>
         <spring.cloud.netflix.zuul.verion>2.0.4.RELEASE</spring.cloud.netflix.zuul.verion>
         <spring.cloud.starter.gateway.version>2.0.4.RELEASE</spring.cloud.starter.gateway.version>
@@ -84,7 +85,7 @@
         <swagger2.version>2.6.1</swagger2.version>
         <swagger2.ui.version>2.6.1</swagger2.ui.version>
 
-
+        <guava.version>24.0-jre</guava.version>
     </properties>
 
 
@@ -187,6 +188,12 @@
                 <version>${swagger2.ui.version}</version>
             </dependency>
 
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
