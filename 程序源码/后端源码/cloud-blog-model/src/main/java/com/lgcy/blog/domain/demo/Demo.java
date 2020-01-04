@@ -3,6 +3,7 @@ package com.lgcy.blog.domain.demo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -25,6 +26,7 @@ import java.time.LocalDateTime;
 @Data
 @ToString
 @Accessors(chain = true)
+@TableName("demo")
 @ApiModel(value="Demo对象", description="样例")
 public class Demo implements Serializable {
 

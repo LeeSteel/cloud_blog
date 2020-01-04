@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableDiscoveryClient
 @EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
-@EntityScan("com.lgcy.blog.domain.admin")//扫描实体类
+@EntityScan("com.lgcy.blog.domain")//扫描实体类
 @ComponentScan(basePackages={"com.lgcy.blog.api"})//扫描接口
 @ComponentScan(basePackages={"com.lgcy.blog.framework"})//扫描common下的所有类
 @ComponentScan(basePackages = {"com.lgcy.blog.cloudblog"})
