@@ -66,12 +66,12 @@
         <spring.cloud.starter.netflix.hystrix.version>2.0.4.RELEASE</spring.cloud.starter.netflix.hystrix.version>
 
         <!--工具包 -->
-        <commons.lang3.version>3.3.2</commons.lang3.version>
-        <commons.io.version>2.2</commons.io.version>
-        <commons.net.version>3.3</commons.net.version>
+        <commons-lang3.version>3.3.2</commons-lang3.version>
+        <commons-io.version>2.2</commons-io.version>
+        <commons-net.version>3.3</commons-net.version>
         <commons-fileupload.version>1.3.1</commons-fileupload.version>
-        <commons.codec.version>1.10</commons.codec.version>
-        <commons.configuration.version>1.10</commons.configuration.version>
+        <commons-codec.version>1.10</commons-codec.version>
+        <commons-configuration.version>1.10</commons-configuration.version>
 
         <fastjson.version>1.2.58</fastjson.version>
         <gson.version>2.8.5</gson.version>
@@ -193,6 +193,25 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+
+            <!-- json-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <!-- commons 工具包  -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-net</groupId>
+                <artifactId>commons-net</artifactId>
+                <version>${commons-net.version}</version>
             </dependency>
 
         </dependencies>
