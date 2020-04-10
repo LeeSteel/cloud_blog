@@ -64,6 +64,7 @@
     <build>
         <finalName>${project.name}</finalName>
         <plugins>
+            <!-- Docker 打包插件 -->
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
