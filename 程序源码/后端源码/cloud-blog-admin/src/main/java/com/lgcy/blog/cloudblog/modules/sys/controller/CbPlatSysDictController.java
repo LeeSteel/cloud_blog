@@ -9,9 +9,6 @@ import com.lgcy.blog.framework.model.response.*;
 import com.lgcy.blog.framework.model.response.QueryResponseResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import com.lgcy.blog.cloudblog.modules.sys.service.ICbPlatSysDictService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -40,9 +37,7 @@ public class CbPlatSysDictController implements CbPlatSysDictControllerApi {
     private ICbPlatSysDictService cbPlatSysDictService;
 
 
-    /**
-     * 获取数据列表
-     */
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @Override
     public QueryResponseResult<CbPlatSysDict> findListByPage(@RequestParam(name = "page", defaultValue = "1") int pageIndex, @RequestParam(name = "rows", defaultValue = "20") int step) {

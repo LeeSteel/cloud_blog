@@ -13,7 +13,8 @@ public enum CbPlatSysCode implements ResultCode {
     CB_PLAT_SYS_ISNULL(false,22001,"平台数据不存在"),
     CB_PLAT_SYS_ADD_ERROR(false,22002,"平台数据新增失败"),
     CB_PLAT_SYS_UPDATE_ERROR(false,22003,"平台数据修改失败"),
-    CB_PLAT_SYS_DELETE_ERROR(false,22004,"平台数据删除失败");
+    CB_PLAT_SYS_DELETE_ERROR(false,22004,"平台数据删除失败"),
+    CB_PLAT_SYS_ADD_DOUBLE_ERROR(false,22005,"平台数据重复新增");
 
     //操作代码
     @ApiModelProperty(value = "操作是否成功", example = "true", required = true)

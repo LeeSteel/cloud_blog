@@ -40,7 +40,7 @@ import java.util.List;
  */
 @Slf4j
 @Configuration
-@MapperScan(basePackages = "com.lgcy.blog.cloudblog.modules.sys.mapper", sqlSessionFactoryRef = "firstSqlSessionFactory", sqlSessionTemplateRef = "firstSqlSessionTemplate")
+@MapperScan(basePackages = {"com.lgcy.blog.cloudblog.modules.sys.mapper","com.lgcy.blog.domain.admin"}, sqlSessionFactoryRef = "firstSqlSessionFactory", sqlSessionTemplateRef = "firstSqlSessionTemplate")
 public class FirstMyBatisConfiguration extends MyBatisConfiguration
 {
     
@@ -86,7 +86,7 @@ public class FirstMyBatisConfiguration extends MyBatisConfiguration
         super.applyConfiguration(factory);
         try
         {
-            Resource[] resources = RESOURCE_RESOLVER.getResources("classpath:mapper/**/*.xml");
+            Resource[] resources = RESOURCE_RESOLVER.getResources("classpath:mapper/sys/*.xml");
             factory.setMapperLocations(resources);
         }
         catch (IOException e)
