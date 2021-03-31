@@ -85,7 +85,7 @@
         <swagger2.version>2.6.1</swagger2.version>
         <swagger2.ui.version>2.6.1</swagger2.ui.version>
 
-        <guava.version>24.0-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
     </properties>
 
 
